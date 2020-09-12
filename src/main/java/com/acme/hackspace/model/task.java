@@ -19,11 +19,12 @@ import lombok.Setter;
 @Table(name="tasks")
 @Getter
 @Setter
-public class task {
+public class Task{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     @NotNull
     @NotBlank
     @Size(max = 50)
