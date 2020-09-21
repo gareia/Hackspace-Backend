@@ -1,5 +1,8 @@
 package com.acme.hackspace.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
 
 import com.acme.hackspace.model.Task;
@@ -9,8 +12,12 @@ import com.acme.hackspace.service.TaskService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +35,15 @@ public class TaskController {
 
     @PostMapping
     public ResponseEntity<TaskResource> createTask(@Valid @RequestBody SaveTaskResource resource){
-        TaskResource taskResource=convertToResource(taskService.createTask(convertToEntity(resource)));
+        TaskResource taskResource = convertToResource(taskService.createTask(convertToEntity(resource)));
         return new ResponseEntity<TaskResource>(taskResource, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public Page<TaskResource> getAllTasks(Pageable pageable){
+        Page<Task> tasks = taskService.getAllTasks(pageable);
+        List<TaskResource> resources = tasks.getContent().stream().map(this::convertToResource).collect(Collectors.toList());
+        return new PageImpl<>(resources, pageable, resources.size());
     }
 
     private Task convertToEntity(SaveTaskResource resource){
