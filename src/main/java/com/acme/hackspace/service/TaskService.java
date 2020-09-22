@@ -8,4 +8,5 @@ import org.springframework.data.domain.Pageable;
 public interface TaskService {
     Task createTask(Task task);
     Page<Task> getAllTasks(Pageable pageable);
+    Task getTaskById(Long id);
 }

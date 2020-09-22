@@ -1,5 +1,8 @@
 package com.acme.hackspace.service;
 
+import java.util.Optional;
+
+import com.acme.hackspace.exception.ResourceNotFoundException;
 import com.acme.hackspace.model.Task;
 import com.acme.hackspace.repository.TaskRepository;
 
@@ -23,6 +26,16 @@ public class TaskServiceImpl implements TaskService {
     public Page<Task> getAllTasks(Pageable pageable) {
         return taskRepository.findAll(pageable);
     }
+
+    @Override
+    public Task getTaskById(Long id) {
+
+        return taskRepository.findById(id)
+        .orElseThrow(()-> new ResourceNotFoundException("Task", "Id", id));
+        
+    }
+
+    
 
     
 }
