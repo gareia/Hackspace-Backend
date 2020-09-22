@@ -10,4 +10,5 @@ public interface TaskService {
     Page<Task> getAllTasks(Pageable pageable);
     Task getTaskById(Long id);
     Task updateTask(Long id, Task newTask);
+    void deleteTask(Long id);
 }

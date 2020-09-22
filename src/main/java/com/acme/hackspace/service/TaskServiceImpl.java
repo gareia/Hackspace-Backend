@@ -42,6 +42,13 @@ public class TaskServiceImpl implements TaskService {
         return taskRepository.save(task);
     }
 
+    @Override
+    public void deleteTask(Long id) {
+        Task task = getTaskById(id);
+        //if not null
+        taskRepository.delete(task);
+    }
+
 
     
 

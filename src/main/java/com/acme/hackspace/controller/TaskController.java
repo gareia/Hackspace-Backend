@@ -17,6 +17,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,6 +57,12 @@ public class TaskController {
     @PutMapping("/{id}")
     public TaskResource updateTask(@PathVariable Long id, @Valid @RequestBody SaveTaskResource resource){
         return convertToResource(taskService.updateTask(id, convertToEntity(resource)));
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteTask(@PathVariable Long id){
+        taskService.deleteTask(id);
+        //return ResponseEntity.ok().build();
     }
 
     private Task convertToEntity(SaveTaskResource resource){
