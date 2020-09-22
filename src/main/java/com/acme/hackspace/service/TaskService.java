@@ -9,4 +9,5 @@ public interface TaskService {
     Task createTask(Task task);
     Page<Task> getAllTasks(Pageable pageable);
     Task getTaskById(Long id);
+    Task updateTask(Long id, Task newTask);
 }

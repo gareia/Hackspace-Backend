@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
@@ -39,7 +40,7 @@ public class Task{
     @Column(unique = true)
     private String name;
 
-    
+    @NotNull
     private Boolean completed = false;
 
     @Column(nullable = false, updatable = false)
