@@ -35,10 +35,11 @@ public class TaskServiceImpl implements TaskService {
     public Task updateTask(Long id, Task newTask) {
         Task task = getTaskById(id);
         //if not null
-        if(task.getCompleted() == false)
+        if(task.getCompleted() == false){
             task.setName(newTask.getName());
-        if(newTask.getCompleted() == true)
-            task.setCompleted(newTask.getCompleted());
+            if(newTask.getCompleted() == true)
+                task.setCompleted(newTask.getCompleted());
+        }
         return taskRepository.save(task);
     }
 

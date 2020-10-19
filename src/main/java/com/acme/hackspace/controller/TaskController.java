@@ -6,8 +6,9 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import com.acme.hackspace.model.Task;
-import com.acme.hackspace.resource.SaveTaskResource;
+import com.acme.hackspace.resource.CreateTaskDto;
 import com.acme.hackspace.resource.TaskResource;
+import com.acme.hackspace.resource.UpdateTaskDto;
 import com.acme.hackspace.service.TaskService;
 
 import org.modelmapper.ModelMapper;
@@ -39,8 +40,8 @@ public class TaskController {
     private TaskService taskService;
 
     @PostMapping
-    public ResponseEntity<TaskResource> createTask(@Valid @RequestBody SaveTaskResource resource){
-        TaskResource taskResource = convertToResource(taskService.createTask(convertToEntity(resource)));
+    public ResponseEntity<TaskResource> createTask(@Valid @RequestBody CreateTaskDto createDto){
+        TaskResource taskResource = convertToResource(taskService.createTask(convertCreateDtoToEntity(createDto)));
         return new ResponseEntity<TaskResource>(taskResource, HttpStatus.CREATED);
     }
 
@@ -57,8 +58,8 @@ public class TaskController {
     }
 
     @PutMapping("/{id}")
-    public TaskResource updateTask(@PathVariable Long id, @Valid @RequestBody SaveTaskResource resource){
-        return convertToResource(taskService.updateTask(id, convertToEntity(resource)));
+    public TaskResource updateTask(@PathVariable Long id, @Valid @RequestBody UpdateTaskDto updateDto){
+        return convertToResource(taskService.updateTask(id, convertUpdateDtoToEntity(updateDto)));
     }
 
     @DeleteMapping("/{id}")
@@ -67,10 +68,14 @@ public class TaskController {
         //return ResponseEntity.ok().build();
     }
 
-    private Task convertToEntity(SaveTaskResource resource){
-        return mapper.map(resource, Task.class);
-    }
     private TaskResource convertToResource(Task entity){
         return mapper.map(entity, TaskResource.class);
     }
+    private Task convertUpdateDtoToEntity(UpdateTaskDto resource){
+        return mapper.map(resource, Task.class);
+    }
+    private Task convertCreateDtoToEntity(CreateTaskDto createDto){
+        return mapper.map(createDto, Task.class);
+    }
+
 }
