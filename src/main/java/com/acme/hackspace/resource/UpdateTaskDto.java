@@ -12,12 +12,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UpdateTaskDto {
-
     @NotBlank
     @Size(max = 50)
     @Column(unique = true)
     private String name;
-
+    
     @NotNull
     private Boolean completed;
 

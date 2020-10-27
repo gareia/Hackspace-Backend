@@ -71,8 +71,8 @@ public class TaskController {
     private TaskResource convertToResource(Task entity){
         return mapper.map(entity, TaskResource.class);
     }
-    private Task convertUpdateDtoToEntity(UpdateTaskDto resource){
-        return mapper.map(resource, Task.class);
+    private Task convertUpdateDtoToEntity(UpdateTaskDto updateDto){
+        return mapper.map(updateDto, Task.class);
     }
     private Task convertCreateDtoToEntity(CreateTaskDto createDto){
         return mapper.map(createDto, Task.class);

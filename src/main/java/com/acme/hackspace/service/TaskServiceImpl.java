@@ -33,14 +33,19 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task updateTask(Long id, Task newTask) {
+        System.out.println(newTask.getName()+' '+newTask.getCompleted());
         Task task = getTaskById(id);
+        
         //if not null
         if(task.getCompleted() == false){
-            task.setName(newTask.getName());
+            if(newTask.getName() != task.getName())
+                task.setName(newTask.getName());
             if(newTask.getCompleted() == true)
-                task.setCompleted(newTask.getCompleted());
+                task.setCompleted(true);
+            System.out.println(task.getId()+' '+task.getName()+' '+task.getCompleted()+' '+task.getCreatedAt());
+            return taskRepository.save(task);
         }
-        return taskRepository.save(task);
+        return task;
     }
 
     @Override
