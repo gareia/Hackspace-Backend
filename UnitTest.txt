@@ -1,0 +1,36 @@
+
+
+
+### Variables
+
+@id=10
+
+
+
+
+
+### POST 
+POST http://localhost:8080/api/tasks HTTP/1.1
+content-type: application/json
+
+{
+    "name": "alimentar conejos"
+}
+
+### GET ALL
+GET http://localhost:8080/api/tasks
+
+### GET BY ID
+GET http://localhost:8080/api/tasks/{{id}}
+
+### PUT
+PUT http://localhost:8080/api/tasks/{{id}}
+content-type: application/json
+
+{
+    "name": "jugar among us y roblox",
+    "completed": true
+}
+
+### DELETE
+DELETE http://localhost:8080/api/tasks/{{id}}
